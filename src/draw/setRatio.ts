@@ -12,7 +12,6 @@ export const setRatio = (tale: HTMLDivElement) => {
       baseWidthScale,
       baseHeightScale
     )}) translate(-50%, -50%)`;
-    // tale.style.transform = `scale(${1})`;
   };
   setScale();
   window.addEventListener("resize", () => {

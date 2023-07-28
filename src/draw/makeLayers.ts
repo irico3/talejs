@@ -1,12 +1,15 @@
 import { makeDiv } from "../utils/dom";
 import style from "../style.module.css";
+import { getTextLayer } from "./TextLayer";
 
 export const makeLayers = (tale: HTMLDivElement) => {
   // 背景layer
-  const bgLayer = makeDiv(style.bgLayer);
-  tale.appendChild(bgLayer);
+  const bgDiv = makeDiv(style.bgLayer);
+  tale.appendChild(bgDiv);
 
   // テキストlayer
-  const textLayer = makeDiv(style.textLayer);
-  tale.appendChild(textLayer);
+  const textLayer = getTextLayer(makeDiv(style.textLayer));
+  tale.appendChild(textLayer.element);
+
+  return { bgDiv, textLayer };
 };

@@ -11,5 +11,7 @@ tale.style.height = SCREEN_HEIGHT.toString() + "px";
 
 tale.classList.add(style.tale);
 
-makeLayers(tale);
+const { textLayer } = makeLayers(tale);
 setRatio(tale);
+
+textLayer.addText("Hello, world!");
