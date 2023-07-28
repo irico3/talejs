@@ -1,0 +1,22 @@
+.body {
+  position: relative;
+}
+.tale {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: yellow;
+  transform-origin: top left;
+}
+.bgLayer {
+  height: 100%;
+  background-color: black;
+}
+.textLayer {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  right: 50px;
+  height: 200px;
+  background-color: white;
+}
