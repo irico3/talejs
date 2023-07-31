@@ -1,15 +1,20 @@
-import { makeDiv } from "../utils/dom";
-import style from "../style.module.css";
-import { getTextLayer } from "./TextLayer";
+import { makeEl } from "../utils/dom";
+import styles from "../style.module.css";
+import { getTextLayer } from "./textLayer";
+import { getClickLayer } from "./clickLayer";
 
 export const makeLayers = (tale: HTMLDivElement) => {
   // 背景layer
-  const bgDiv = makeDiv(style.bgLayer);
+  const bgDiv = makeEl(styles.bgLayer, "div");
   tale.appendChild(bgDiv);
 
   // テキストlayer
-  const textLayer = getTextLayer(makeDiv(style.textLayer));
+  const textLayer = getTextLayer();
   tale.appendChild(textLayer.element);
 
-  return { bgDiv, textLayer };
+  // クリック用の透明なレイヤー
+  const clickLayer = getClickLayer();
+  tale.appendChild(clickLayer.element);
+
+  return { bgDiv, textLayer, clickLayer };
 };
