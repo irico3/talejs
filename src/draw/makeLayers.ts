@@ -1,6 +1,6 @@
 import { makeEl } from "../utils/dom";
 import styles from "../style.module.css";
-import { getTextLayer } from "./textLayer";
+import { TextLayer } from "./textLayer";
 import { getClickLayer } from "./clickLayer";
 
 export const makeLayers = (tale: HTMLDivElement) => {
@@ -9,7 +9,7 @@ export const makeLayers = (tale: HTMLDivElement) => {
   tale.appendChild(bgDiv);
 
   // テキストlayer
-  const textLayer = getTextLayer();
+  const textLayer = new TextLayer();
   tale.appendChild(textLayer.element);
 
   // クリック用の透明なレイヤー
