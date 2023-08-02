@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "antlr4ts": "antlr4 -Dlanguage=TypeScript ./src/parser/MyGrammar.g4"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "antlr4": "4.13.0"
   }
 }
