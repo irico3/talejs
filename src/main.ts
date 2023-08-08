@@ -5,6 +5,7 @@ import { setRatio } from "./draw/setRatio";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constant";
 import { ScriptManager } from "./execScript/ScriptManager";
 import { createParser } from "./parser/createParser";
+import taleFile from "../sample/test.tale?raw";
 
 const makeTaleBase = () => {
   const tale = document.querySelector<HTMLDivElement>("#tale");
@@ -20,7 +21,7 @@ const makeTaleBase = () => {
 const tale = makeTaleBase();
 const { textLayer, clickLayer } = makeLayers(tale);
 
-createParser();
+createParser(taleFile);
 
 const scriptManager = new ScriptManager(textLayer, clickLayer);
 

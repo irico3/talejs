@@ -3,15 +3,15 @@ grammar MyGrammar;
 /**
  * parser
  */
-prog:   (expr NEWLINE)* ;
-expr:   expr ('*'|'/') expr
-    |   expr ('+'|'-') expr
-    |   INT
-    |   '(' expr ')'
-    ;
+tale: tag #printTag;
+text: .*NEWLINE? #printText;
+tag: '[' .* ']' #printTag;
 
 /**
  * lexer
  */
-NEWLINE : [\r\n]+ ;
+
+
 INT     : [0-9]+ ;
+NEWLINE: '\r'? '\n' ;
+WS:[\t]+ -> skip;

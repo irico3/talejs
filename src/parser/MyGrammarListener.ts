@@ -3,8 +3,9 @@
 import {ParseTreeListener} from "antlr4";
 
 
-import { ProgContext } from "./MyGrammarParser";
-import { ExprContext } from "./MyGrammarParser";
+import { TaleContext } from "./MyGrammarParser";
+import { TagContext } from "./MyGrammarParser";
+import { TextContext } from "./MyGrammarParser";
 
 
 /**
@@ -13,24 +14,34 @@ import { ExprContext } from "./MyGrammarParser";
  */
 export default class MyGrammarListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by `MyGrammarParser.prog`.
+	 * Enter a parse tree produced by `MyGrammarParser.tale`.
 	 * @param ctx the parse tree
 	 */
-	enterProg?: (ctx: ProgContext) => void;
+	enterTale?: (ctx: TaleContext) => void;
 	/**
-	 * Exit a parse tree produced by `MyGrammarParser.prog`.
+	 * Exit a parse tree produced by `MyGrammarParser.tale`.
 	 * @param ctx the parse tree
 	 */
-	exitProg?: (ctx: ProgContext) => void;
+	exitTale?: (ctx: TaleContext) => void;
 	/**
-	 * Enter a parse tree produced by `MyGrammarParser.expr`.
+	 * Enter a parse tree produced by `MyGrammarParser.tag`.
 	 * @param ctx the parse tree
 	 */
-	enterExpr?: (ctx: ExprContext) => void;
+	enterTag?: (ctx: TagContext) => void;
 	/**
-	 * Exit a parse tree produced by `MyGrammarParser.expr`.
+	 * Exit a parse tree produced by `MyGrammarParser.tag`.
 	 * @param ctx the parse tree
 	 */
-	exitExpr?: (ctx: ExprContext) => void;
+	exitTag?: (ctx: TagContext) => void;
+	/**
+	 * Enter a parse tree produced by `MyGrammarParser.text`.
+	 * @param ctx the parse tree
+	 */
+	enterText?: (ctx: TextContext) => void;
+	/**
+	 * Exit a parse tree produced by `MyGrammarParser.text`.
+	 * @param ctx the parse tree
+	 */
+	exitText?: (ctx: TextContext) => void;
 }
 
