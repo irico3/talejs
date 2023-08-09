@@ -3,9 +3,15 @@ grammar MyGrammar;
 /**
  * parser
  */
-tale: tag #printTag;
-text: .*NEWLINE? #printText;
-tag: '[' .* ']' #printTag;
+tale: line* endLine;
+
+line: expr NEWLINE #printExpr;
+endLine: expr EOF;
+
+expr: tag |
+    TEXT
+;
+tag: '[name]' #printTag;
 
 /**
  * lexer
@@ -13,5 +19,6 @@ tag: '[' .* ']' #printTag;
 
 
 INT     : [0-9]+ ;
-NEWLINE: '\r'? '\n' ;
+TEXT: .+;
+NEWLINE: '\r'? '\n';
 WS:[\t]+ -> skip;

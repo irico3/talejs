@@ -16,25 +16,25 @@ public class MyGrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, INT=3, NEWLINE=4, WS=5;
+		T__0=1, INT=2, TEXT=3, NEWLINE=4, WS=5;
 	public static final int
-		RULE_tale = 0, RULE_text = 1, RULE_tag = 2;
+		RULE_tale = 0, RULE_line = 1, RULE_endLine = 2, RULE_expr = 3, RULE_tag = 4;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"tale", "text", "tag"
+			"tale", "line", "endLine", "expr", "tag"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'['", "']'"
+			null, "'[name]'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "INT", "NEWLINE", "WS"
+			null, null, "INT", "TEXT", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -89,32 +89,46 @@ public class MyGrammarParser extends Parser {
 	}
 
 	public static class TaleContext extends ParserRuleContext {
+		public EndLineContext endLine() {
+			return getRuleContext(EndLineContext.class,0);
+		}
+		public List<LineContext> line() {
+			return getRuleContexts(LineContext.class);
+		}
+		public LineContext line(int i) {
+			return getRuleContext(LineContext.class,i);
+		}
 		public TaleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tale; }
-	 
-		public TaleContext() { }
-		public void copyFrom(TaleContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class PrintTagContext extends TaleContext {
-		public TagContext tag() {
-			return getRuleContext(TagContext.class,0);
-		}
-		public PrintTagContext(TaleContext ctx) { copyFrom(ctx); }
 	}
 
 	public final TaleContext tale() throws RecognitionException {
 		TaleContext _localctx = new TaleContext(_ctx, getState());
 		enterRule(_localctx, 0, RULE_tale);
 		try {
-			_localctx = new PrintTagContext(_localctx);
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6);
-			tag();
+			setState(13);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(10);
+					line();
+					}
+					} 
+				}
+				setState(15);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			}
+			setState(16);
+			endLine();
 			}
 		}
 		catch (RecognitionException re) {
@@ -128,57 +142,117 @@ public class MyGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TextContext extends ParserRuleContext {
-		public TextContext(ParserRuleContext parent, int invokingState) {
+	public static class LineContext extends ParserRuleContext {
+		public LineContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_text; }
+		@Override public int getRuleIndex() { return RULE_line; }
 	 
-		public TextContext() { }
-		public void copyFrom(TextContext ctx) {
+		public LineContext() { }
+		public void copyFrom(LineContext ctx) {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class PrintTextContext extends TextContext {
+	public static class PrintExprContext extends LineContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
 		public TerminalNode NEWLINE() { return getToken(MyGrammarParser.NEWLINE, 0); }
-		public PrintTextContext(TextContext ctx) { copyFrom(ctx); }
+		public PrintExprContext(LineContext ctx) { copyFrom(ctx); }
 	}
 
-	public final TextContext text() throws RecognitionException {
-		TextContext _localctx = new TextContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_text);
-		int _la;
+	public final LineContext line() throws RecognitionException {
+		LineContext _localctx = new LineContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_line);
 		try {
-			int _alt;
-			_localctx = new PrintTextContext(_localctx);
+			_localctx = new PrintExprContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(11);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
-			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1+1 ) {
-					{
-					{
-					setState(8);
-					matchWildcard();
-					}
-					} 
-				}
-				setState(13);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
+			setState(18);
+			expr();
+			setState(19);
+			match(NEWLINE);
 			}
-			setState(15);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==NEWLINE) {
-				{
-				setState(14);
-				match(NEWLINE);
-				}
-			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
 
+	public static class EndLineContext extends ParserRuleContext {
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode EOF() { return getToken(MyGrammarParser.EOF, 0); }
+		public EndLineContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_endLine; }
+	}
+
+	public final EndLineContext endLine() throws RecognitionException {
+		EndLineContext _localctx = new EndLineContext(_ctx, getState());
+		enterRule(_localctx, 4, RULE_endLine);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(21);
+			expr();
+			setState(22);
+			match(EOF);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ExprContext extends ParserRuleContext {
+		public TagContext tag() {
+			return getRuleContext(TagContext.class,0);
+		}
+		public TerminalNode TEXT() { return getToken(MyGrammarParser.TEXT, 0); }
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expr; }
+	}
+
+	public final ExprContext expr() throws RecognitionException {
+		ExprContext _localctx = new ExprContext(_ctx, getState());
+		enterRule(_localctx, 6, RULE_expr);
+		try {
+			setState(26);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case T__0:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(24);
+				tag();
+				}
+				break;
+			case TEXT:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(25);
+				match(TEXT);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -203,38 +277,19 @@ public class MyGrammarParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class TagSetContext extends TagContext {
-		public TagSetContext(TagContext ctx) { copyFrom(ctx); }
+	public static class PrintTagContext extends TagContext {
+		public PrintTagContext(TagContext ctx) { copyFrom(ctx); }
 	}
 
 	public final TagContext tag() throws RecognitionException {
 		TagContext _localctx = new TagContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_tag);
+		enterRule(_localctx, 8, RULE_tag);
 		try {
-			int _alt;
-			_localctx = new TagSetContext(_localctx);
+			_localctx = new PrintTagContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(17);
+			setState(28);
 			match(T__0);
-			setState(21);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1+1 ) {
-					{
-					{
-					setState(18);
-					matchWildcard();
-					}
-					} 
-				}
-				setState(23);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
-			}
-			setState(24);
-			match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -249,15 +304,15 @@ public class MyGrammarParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\35\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\3\7\3\f\n\3\f\3\16\3\17\13\3\3\3\5\3\22\n\3\3\4"+
-		"\3\4\7\4\26\n\4\f\4\16\4\31\13\4\3\4\3\4\3\4\4\r\27\2\5\2\4\6\2\2\2\34"+
-		"\2\b\3\2\2\2\4\r\3\2\2\2\6\23\3\2\2\2\b\t\5\6\4\2\t\3\3\2\2\2\n\f\13\2"+
-		"\2\2\13\n\3\2\2\2\f\17\3\2\2\2\r\16\3\2\2\2\r\13\3\2\2\2\16\21\3\2\2\2"+
-		"\17\r\3\2\2\2\20\22\7\6\2\2\21\20\3\2\2\2\21\22\3\2\2\2\22\5\3\2\2\2\23"+
-		"\27\7\3\2\2\24\26\13\2\2\2\25\24\3\2\2\2\26\31\3\2\2\2\27\30\3\2\2\2\27"+
-		"\25\3\2\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\33\7\4\2\2\33\7\3\2\2\2\5\r"+
-		"\21\27";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7!\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2\3\2\3\3"+
+		"\3\3\3\3\3\4\3\4\3\4\3\5\3\5\5\5\35\n\5\3\6\3\6\3\6\2\2\7\2\4\6\b\n\2"+
+		"\2\2\35\2\17\3\2\2\2\4\24\3\2\2\2\6\27\3\2\2\2\b\34\3\2\2\2\n\36\3\2\2"+
+		"\2\f\16\5\4\3\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r\3\2\2\2\17\20\3\2\2\2\20"+
+		"\22\3\2\2\2\21\17\3\2\2\2\22\23\5\6\4\2\23\3\3\2\2\2\24\25\5\b\5\2\25"+
+		"\26\7\6\2\2\26\5\3\2\2\2\27\30\5\b\5\2\30\31\7\2\2\3\31\7\3\2\2\2\32\35"+
+		"\5\n\6\2\33\35\7\5\2\2\34\32\3\2\2\2\34\33\3\2\2\2\35\t\3\2\2\2\36\37"+
+		"\7\3\2\2\37\13\3\2\2\2\4\17\34";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
