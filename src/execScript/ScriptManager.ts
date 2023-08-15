@@ -1,14 +1,20 @@
 import { ClickLayer } from "../draw/clickLayer";
 import { TextLayer } from "../draw/textLayer";
-import { TextBlock, textBlock } from "./textBlock";
+import { TaleBlock, textBlock } from "./textBlock";
 
 export class ScriptManager {
   #textLayer: TextLayer;
   #clickLayer: ClickLayer;
+  #taleBlocks: TaleBlock[];
 
-  constructor(textLayer: TextLayer, clickLayer: ClickLayer) {
+  constructor(
+    textLayer: TextLayer,
+    clickLayer: ClickLayer,
+    taleBlocks: TaleBlock[]
+  ) {
     this.#textLayer = textLayer;
     this.#clickLayer = clickLayer;
+    this.#taleBlocks = taleBlocks;
 
     this.next = this.next.bind(this);
   }
@@ -16,16 +22,8 @@ export class ScriptManager {
   index = 0;
 
   exec() {
-    const taleBlocks: TextBlock[] = [
-      {
-        type: "text",
-        text: "長い文章でのテスト長い文章でのテスト長い文章でのテスト長い文章でのテスト長い文章でのテスト",
-      },
-      { type: "text", text: "i am talejs!" },
-      { type: "text", text: "yeah" },
-    ];
-
-    const taleBlock = taleBlocks[this.index];
+    const taleBlock = this.#taleBlocks[this.index];
+    console.log(this.#taleBlocks);
     if (taleBlock.type === "text") {
       textBlock(taleBlock, this.#textLayer, this.#clickLayer, this.next);
     }
