@@ -18,21 +18,22 @@ import MyGrammarVisitor from "./MyGrammarVisitor.js";
 type int = number;
 
 export default class MyGrammarParser extends Parser {
-	public static readonly T__0 = 1;
-	public static readonly INT = 2;
-	public static readonly TEXT = 3;
-	public static readonly WS = 4;
+	public static readonly BG_ATTR = 1;
+	public static readonly TEXT = 2;
+	public static readonly P_TAG = 3;
+	public static readonly BG_TAG = 4;
+	public static readonly WS = 5;
 	public static readonly EOF = Token.EOF;
 	public static readonly RULE_tale = 0;
 	public static readonly RULE_expr = 1;
-	public static readonly RULE_tag = 2;
-	public static readonly literalNames: (string | null)[] = [ null, "'[p]'" ];
-	public static readonly symbolicNames: (string | null)[] = [ null, null, 
-                                                             "INT", "TEXT", 
-                                                             "WS" ];
+	public static readonly literalNames: (string | null)[] = [ null, null, 
+                                                            null, "'[p]'" ];
+	public static readonly symbolicNames: (string | null)[] = [ null, "BG_ATTR", 
+                                                             "TEXT", "P_TAG", 
+                                                             "BG_TAG", "WS" ];
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"tale", "expr", "tag",
+		"tale", "expr",
 	];
 	public get grammarFileName(): string { return "MyGrammar.g4"; }
 	public get literalNames(): (string | null)[] { return MyGrammarParser.literalNames; }
@@ -56,17 +57,17 @@ export default class MyGrammarParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 9;
+			this.state = 7;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while (_la===1 || _la===3) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 28) !== 0)) {
 				{
 				{
-				this.state = 6;
+				this.state = 4;
 				this.expr();
 				}
 				}
-				this.state = 11;
+				this.state = 9;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
@@ -91,22 +92,30 @@ export default class MyGrammarParser extends Parser {
 		let localctx: ExprContext = new ExprContext(this, this._ctx, this.state);
 		this.enterRule(localctx, 2, MyGrammarParser.RULE_expr);
 		try {
-			this.state = 14;
+			this.state = 13;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case 1:
-				localctx = new PrintTagContext(this, localctx);
+			case 3:
+				localctx = new PrintPTagContext(this, localctx);
 				this.enterOuterAlt(localctx, 1);
 				{
-				this.state = 12;
-				this.tag();
+				this.state = 10;
+				this.match(MyGrammarParser.P_TAG);
 				}
 				break;
-			case 3:
-				localctx = new PrintTextContext(this, localctx);
+			case 4:
+				localctx = new PrintBgTagContext(this, localctx);
 				this.enterOuterAlt(localctx, 2);
 				{
-				this.state = 13;
+				this.state = 11;
+				this.match(MyGrammarParser.BG_TAG);
+				}
+				break;
+			case 2:
+				localctx = new PrintTextContext(this, localctx);
+				this.enterOuterAlt(localctx, 3);
+				{
+				this.state = 12;
 				this.match(MyGrammarParser.TEXT);
 				}
 				break;
@@ -128,38 +137,13 @@ export default class MyGrammarParser extends Parser {
 		}
 		return localctx;
 	}
-	// @RuleVersion(0)
-	public tag(): TagContext {
-		let localctx: TagContext = new TagContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 4, MyGrammarParser.RULE_tag);
-		try {
-			this.enterOuterAlt(localctx, 1);
-			{
-			this.state = 16;
-			this.match(MyGrammarParser.T__0);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return localctx;
-	}
 
-	public static readonly _serializedATN: number[] = [4,1,4,19,2,0,7,0,2,1,
-	7,1,2,2,7,2,1,0,5,0,8,8,0,10,0,12,0,11,9,0,1,1,1,1,3,1,15,8,1,1,2,1,2,1,
-	2,0,0,3,0,2,4,0,0,17,0,9,1,0,0,0,2,14,1,0,0,0,4,16,1,0,0,0,6,8,3,2,1,0,
-	7,6,1,0,0,0,8,11,1,0,0,0,9,7,1,0,0,0,9,10,1,0,0,0,10,1,1,0,0,0,11,9,1,0,
-	0,0,12,15,3,4,2,0,13,15,5,3,0,0,14,12,1,0,0,0,14,13,1,0,0,0,15,3,1,0,0,
-	0,16,17,5,1,0,0,17,5,1,0,0,0,2,9,14];
+	public static readonly _serializedATN: number[] = [4,1,5,16,2,0,7,0,2,1,
+	7,1,1,0,5,0,6,8,0,10,0,12,0,9,9,0,1,1,1,1,1,1,3,1,14,8,1,1,1,0,0,2,0,2,
+	0,0,16,0,7,1,0,0,0,2,13,1,0,0,0,4,6,3,2,1,0,5,4,1,0,0,0,6,9,1,0,0,0,7,5,
+	1,0,0,0,7,8,1,0,0,0,8,1,1,0,0,0,9,7,1,0,0,0,10,14,5,3,0,0,11,14,5,4,0,0,
+	12,14,5,2,0,0,13,10,1,0,0,0,13,11,1,0,0,0,13,12,1,0,0,0,14,3,1,0,0,0,2,
+	7,13];
 
 	private static __ATN: ATN;
 	public static get _ATN(): ATN {
@@ -212,18 +196,35 @@ export class ExprContext extends ParserRuleContext {
 		super.copyFrom(ctx);
 	}
 }
-export class PrintTagContext extends ExprContext {
+export class PrintBgTagContext extends ExprContext {
 	constructor(parser: MyGrammarParser, ctx: ExprContext) {
 		super(parser, ctx.parentCtx, ctx.invokingState);
 		super.copyFrom(ctx);
 	}
-	public tag(): TagContext {
-		return this.getTypedRuleContext(TagContext, 0) as TagContext;
+	public BG_TAG(): TerminalNode {
+		return this.getToken(MyGrammarParser.BG_TAG, 0);
 	}
 	// @Override
 	public accept<Result>(visitor: MyGrammarVisitor<Result>): Result {
-		if (visitor.visitPrintTag) {
-			return visitor.visitPrintTag(this);
+		if (visitor.visitPrintBgTag) {
+			return visitor.visitPrintBgTag(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class PrintPTagContext extends ExprContext {
+	constructor(parser: MyGrammarParser, ctx: ExprContext) {
+		super(parser, ctx.parentCtx, ctx.invokingState);
+		super.copyFrom(ctx);
+	}
+	public P_TAG(): TerminalNode {
+		return this.getToken(MyGrammarParser.P_TAG, 0);
+	}
+	// @Override
+	public accept<Result>(visitor: MyGrammarVisitor<Result>): Result {
+		if (visitor.visitPrintPTag) {
+			return visitor.visitPrintPTag(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
@@ -241,25 +242,6 @@ export class PrintTextContext extends ExprContext {
 	public accept<Result>(visitor: MyGrammarVisitor<Result>): Result {
 		if (visitor.visitPrintText) {
 			return visitor.visitPrintText(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
-export class TagContext extends ParserRuleContext {
-	constructor(parser?: MyGrammarParser, parent?: ParserRuleContext, invokingState?: number) {
-		super(parent, invokingState);
-    	this.parser = parser;
-	}
-    public get ruleIndex(): number {
-    	return MyGrammarParser.RULE_tag;
-	}
-	// @Override
-	public accept<Result>(visitor: MyGrammarVisitor<Result>): Result {
-		if (visitor.visitTag) {
-			return visitor.visitTag(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

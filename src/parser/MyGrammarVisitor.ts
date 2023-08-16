@@ -4,9 +4,9 @@ import {ParseTreeVisitor} from 'antlr4';
 
 
 import { TaleContext } from "./MyGrammarParser";
-import { PrintTagContext } from "./MyGrammarParser";
+import { PrintPTagContext } from "./MyGrammarParser";
+import { PrintBgTagContext } from "./MyGrammarParser";
 import { PrintTextContext } from "./MyGrammarParser";
-import { TagContext } from "./MyGrammarParser";
 
 
 /**
@@ -24,12 +24,19 @@ export default class MyGrammarVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitTale?: (ctx: TaleContext) => Result;
 	/**
-	 * Visit a parse tree produced by the `printTag`
+	 * Visit a parse tree produced by the `printPTag`
 	 * labeled alternative in `MyGrammarParser.expr`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitPrintTag?: (ctx: PrintTagContext) => Result;
+	visitPrintPTag?: (ctx: PrintPTagContext) => Result;
+	/**
+	 * Visit a parse tree produced by the `printBgTag`
+	 * labeled alternative in `MyGrammarParser.expr`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitPrintBgTag?: (ctx: PrintBgTagContext) => Result;
 	/**
 	 * Visit a parse tree produced by the `printText`
 	 * labeled alternative in `MyGrammarParser.expr`.
@@ -37,11 +44,5 @@ export default class MyGrammarVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitPrintText?: (ctx: PrintTextContext) => Result;
-	/**
-	 * Visit a parse tree produced by `MyGrammarParser.tag`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitTag?: (ctx: TagContext) => Result;
 }
 

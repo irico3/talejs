@@ -1,6 +1,7 @@
 import { ClickLayer } from "../draw/clickLayer";
 import { TextLayer } from "../draw/textLayer";
-import { TaleBlock, textBlock } from "./textBlock";
+import { textBlock } from "./textBlock";
+import { TaleBlock } from "./type";
 
 export class ScriptManager {
   #textLayer: TextLayer;

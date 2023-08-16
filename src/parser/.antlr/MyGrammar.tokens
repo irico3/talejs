@@ -1,5 +1,6 @@
-T__0=1
-INT=2
-TEXT=3
-WS=4
-'[p]'=1
+BG_ATTR=1
+TEXT=2
+P_TAG=3
+BG_TAG=4
+WS=5
+'[p]'=3

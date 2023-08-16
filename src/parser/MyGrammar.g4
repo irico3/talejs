@@ -5,16 +5,29 @@ grammar MyGrammar;
  */
 tale: expr*;
 
-expr: tag #printTag
+expr: P_TAG #printPTag
+    | BG_TAG #printBgTag
     | TEXT #printText
 ;
-tag: '[p]';
+
+
+
+
+
 
 /**
  * lexer
  */
 
+BG_ATTR: 'color='COLOR;
 
-INT     : [0-9]+ ;
-TEXT: ~('['|'\n')+;
+
+TEXT: ~('['|'\n'| ']')+;
+
+P_TAG: '[p]';
+BG_TAG: '[bg ' BG_ATTR ']';
+
 WS:[\t\r\n]+ -> skip;
+
+fragment COLOR: 'red' | 'green' | 'blue';
+fragment INT  : [0-9]+ ;

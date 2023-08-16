@@ -16,25 +16,25 @@ public class MyGrammarParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, INT=2, TEXT=3, WS=4;
+		BG_ATTR=1, TEXT=2, P_TAG=3, BG_TAG=4, WS=5;
 	public static final int
-		RULE_tale = 0, RULE_expr = 1, RULE_tag = 2;
+		RULE_tale = 0, RULE_expr = 1;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"tale", "expr", "tag"
+			"tale", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'[p]'"
+			null, null, null, "'[p]'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, "INT", "TEXT", "WS"
+			null, "BG_ATTR", "TEXT", "P_TAG", "BG_TAG", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -108,17 +108,17 @@ public class MyGrammarParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(9);
+			setState(7);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0 || _la==TEXT) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TEXT) | (1L << P_TAG) | (1L << BG_TAG))) != 0)) {
 				{
 				{
-				setState(6);
+				setState(4);
 				expr();
 				}
 				}
-				setState(11);
+				setState(9);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -146,11 +146,13 @@ public class MyGrammarParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class PrintTagContext extends ExprContext {
-		public TagContext tag() {
-			return getRuleContext(TagContext.class,0);
-		}
-		public PrintTagContext(ExprContext ctx) { copyFrom(ctx); }
+	public static class PrintBgTagContext extends ExprContext {
+		public TerminalNode BG_TAG() { return getToken(MyGrammarParser.BG_TAG, 0); }
+		public PrintBgTagContext(ExprContext ctx) { copyFrom(ctx); }
+	}
+	public static class PrintPTagContext extends ExprContext {
+		public TerminalNode P_TAG() { return getToken(MyGrammarParser.P_TAG, 0); }
+		public PrintPTagContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	public static class PrintTextContext extends ExprContext {
 		public TerminalNode TEXT() { return getToken(MyGrammarParser.TEXT, 0); }
@@ -161,22 +163,30 @@ public class MyGrammarParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_expr);
 		try {
-			setState(14);
+			setState(13);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__0:
-				_localctx = new PrintTagContext(_localctx);
+			case P_TAG:
+				_localctx = new PrintPTagContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(12);
-				tag();
+				setState(10);
+				match(P_TAG);
+				}
+				break;
+			case BG_TAG:
+				_localctx = new PrintBgTagContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(11);
+				match(BG_TAG);
 				}
 				break;
 			case TEXT:
 				_localctx = new PrintTextContext(_localctx);
-				enterOuterAlt(_localctx, 2);
+				enterOuterAlt(_localctx, 3);
 				{
-				setState(13);
+				setState(12);
 				match(TEXT);
 				}
 				break;
@@ -195,41 +205,13 @@ public class MyGrammarParser extends Parser {
 		return _localctx;
 	}
 
-	public static class TagContext extends ParserRuleContext {
-		public TagContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_tag; }
-	}
-
-	public final TagContext tag() throws RecognitionException {
-		TagContext _localctx = new TagContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_tag);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(16);
-			match(T__0);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\6\25\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\7\2\n\n\2\f\2\16\2\r\13\2\3\3\3\3\5\3\21\n\3\3\4\3\4"+
-		"\3\4\2\2\5\2\4\6\2\2\2\23\2\13\3\2\2\2\4\20\3\2\2\2\6\22\3\2\2\2\b\n\5"+
-		"\4\3\2\t\b\3\2\2\2\n\r\3\2\2\2\13\t\3\2\2\2\13\f\3\2\2\2\f\3\3\2\2\2\r"+
-		"\13\3\2\2\2\16\21\5\6\4\2\17\21\7\5\2\2\20\16\3\2\2\2\20\17\3\2\2\2\21"+
-		"\5\3\2\2\2\22\23\7\3\2\2\23\7\3\2\2\2\4\13\20";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\22\4\2\t\2\4\3"+
+		"\t\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\3\3\3\3\3\5\3\20\n\3\3\3\2\2\4\2"+
+		"\4\2\2\2\22\2\t\3\2\2\2\4\17\3\2\2\2\6\b\5\4\3\2\7\6\3\2\2\2\b\13\3\2"+
+		"\2\2\t\7\3\2\2\2\t\n\3\2\2\2\n\3\3\2\2\2\13\t\3\2\2\2\f\20\7\5\2\2\r\20"+
+		"\7\6\2\2\16\20\7\4\2\2\17\f\3\2\2\2\17\r\3\2\2\2\17\16\3\2\2\2\20\5\3"+
+		"\2\2\2\4\t\17";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

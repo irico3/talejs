@@ -1,9 +1,7 @@
 import { ClickLayer } from "../draw/clickLayer";
 import { TextLayer } from "../draw/textLayer";
 
-export type TaleBlock = TextBlock | { type: "tag" };
-
-type TextBlock = {
+export type TextBlock = {
   type: "text";
   text: string;
 };
