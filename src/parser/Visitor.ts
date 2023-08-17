@@ -1,4 +1,4 @@
-import { TaleBlock } from "../execScript/type";
+import { TaleBlock } from "../types/taleBlock";
 import { PrintTextContext } from "./MyGrammarParser";
 import MyGrammarVisitor from "./MyGrammarVisitor";
 

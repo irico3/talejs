@@ -1,5 +1,5 @@
-import { ClickLayer } from "../draw/clickLayer";
-import { TextLayer } from "../draw/textLayer";
+import { ClickLayer } from "../draw/ClickLayer";
+import { TextLayer } from "../draw/TextLayer";
 
 export type TextBlock = {
   type: "text";

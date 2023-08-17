@@ -1,12 +1,11 @@
-import { makeEl } from "../utils/dom";
-import styles from "../style.module.css";
-import { TextLayer } from "./textLayer";
-import { getClickLayer } from "./clickLayer";
+import { getClickLayer } from "./ClickLayer";
+import { TextLayer } from "./TextLayer";
+import { getBgLayer } from "./bgLayer";
 
 export const makeLayers = (tale: HTMLDivElement) => {
   // 背景layer
-  const bgDiv = makeEl(styles.bgLayer, "div");
-  tale.appendChild(bgDiv);
+  const bgLayer = getBgLayer();
+  tale.appendChild(bgLayer.element);
 
   // テキストlayer
   const textLayer = new TextLayer();
@@ -16,5 +15,5 @@ export const makeLayers = (tale: HTMLDivElement) => {
   const clickLayer = getClickLayer();
   tale.appendChild(clickLayer.element);
 
-  return { bgDiv, textLayer, clickLayer };
+  return { bgLayer, textLayer, clickLayer };
 };
